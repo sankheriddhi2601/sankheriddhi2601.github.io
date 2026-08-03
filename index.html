@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Riddhi Sankhe — Data & Reporting Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F5F0;
+    --paper-dim:#EDECE4;
+    --ink:#1B2430;
+    --ink-soft:#525B66;
+    --line:#D7D5C9;
+    --accent:#1F6F54;
+    --accent-soft:#E4EEE9;
+    --flag:#B34A3C;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Fraunces', serif;
+    --sans: 'Inter', sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/100% 40px,
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  ::selection{ background:var(--accent); color:var(--paper); }
+
+  .wrap{ max-width:1040px; margin:0 auto; padding:0 32px; }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,245,240,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .logo{
+    font-family:var(--mono); font-weight:600; font-size:14px;
+    letter-spacing:0.02em;
+  }
+  .logo span{ color:var(--accent); }
+  .navlinks{ display:flex; gap:28px; list-style:none; font-family:var(--mono); font-size:13px; }
+  .navlinks a{ text-decoration:none; color:var(--ink-soft); transition:color .15s; }
+  .navlinks a:hover{ color:var(--accent); }
+  .navlinks a:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+  /* HERO */
+  .hero{ padding:96px 0 64px; }
+  .eyebrow{
+    font-family:var(--mono); font-size:13px; color:var(--accent);
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{ content:''; width:8px; height:8px; background:var(--accent); border-radius:50%; display:inline-block; }
+  h1{
+    font-family:var(--serif); font-weight:500;
+    font-size:clamp(38px,6vw,64px); line-height:1.05;
+    letter-spacing:-0.01em; max-width:14ch;
+  }
+  h1 em{ font-style:italic; color:var(--accent); font-weight:400; }
+  .hero-sub{
+    margin-top:22px; font-size:18px; color:var(--ink-soft); max-width:52ch;
+  }
+  .hero-cta{ margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:13px; text-decoration:none;
+    padding:12px 20px; border:1px solid var(--ink); border-radius:2px;
+    transition:all .15s;
+  }
+  .btn-solid{ background:var(--ink); color:var(--paper); }
+  .btn-solid:hover{ background:var(--accent); border-color:var(--accent); }
+  .btn-line:hover{ background:var(--ink); color:var(--paper); }
+
+  /* KPI STRIP */
+  .kpis{
+    margin-top:64px; display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line); border-left:1px solid var(--line);
+  }
+  .kpi{
+    border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:22px 20px; background:var(--paper);
+  }
+  .kpi-num{
+    font-family:var(--mono); font-weight:600; font-size:28px; color:var(--ink);
+    display:flex; align-items:baseline; gap:4px;
+  }
+  .kpi-num span{ color:var(--accent); font-size:18px; }
+  .kpi-label{ font-size:12.5px; color:var(--ink-soft); margin-top:6px; }
+  @media (max-width:680px){ .kpis{ grid-template-columns:repeat(2,1fr); } }
+
+  /* SECTION HEADS */
+  section{ padding:72px 0; border-top:1px solid var(--line); }
+  .sec-head{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:40px; gap:20px; flex-wrap:wrap;
+  }
+  .sec-num{ font-family:var(--mono); font-size:13px; color:var(--accent); }
+  h2{
+    font-family:var(--serif); font-weight:500; font-size:clamp(26px,3.4vw,34px);
+  }
+  .sec-note{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); max-width:32ch; text-align:right; }
+
+  /* PROJECTS */
+  .projects{ display:flex; flex-direction:column; gap:1px; background:var(--line); }
+  .project{
+    background:var(--paper); padding:32px; display:grid;
+    grid-template-columns:1fr 2fr; gap:28px;
+    opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;
+  }
+  .project.show{ opacity:1; transform:none; }
+  .project-meta{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); }
+  .project-meta .tag{
+    display:inline-block; background:var(--accent-soft); color:var(--accent);
+    padding:3px 8px; border-radius:2px; margin:6px 6px 0 0; font-size:11.5px;
+  }
+  .project-meta .status{ color:var(--flag); font-weight:600; margin-top:10px; display:block; }
+  .project h3{ font-family:var(--serif); font-size:22px; font-weight:500; margin-bottom:10px; }
+  .project p{ color:var(--ink-soft); font-size:15px; max-width:60ch; }
+  .project ul{ margin-top:14px; padding-left:18px; font-size:14.5px; color:var(--ink-soft); }
+  .project ul li{ margin-bottom:6px; }
+  .project-links{ margin-top:16px; display:flex; gap:16px; }
+  .project-links a{
+    font-family:var(--mono); font-size:12.5px; color:var(--accent);
+    text-decoration:none; border-bottom:1px solid var(--accent);
+  }
+  @media (max-width:720px){ .project{ grid-template-columns:1fr; } }
+
+  /* EXPERIENCE */
+  .role{ display:grid; grid-template-columns:180px 1fr; gap:24px; padding:24px 0; border-bottom:1px solid var(--line); }
+  .role:first-child{ padding-top:0; }
+  .role:last-child{ border-bottom:none; }
+  .role-date{ font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); padding-top:3px; }
+  .role h3{ font-size:17px; font-weight:600; }
+  .role .company{ color:var(--accent); font-size:14px; margin-top:2px; }
+  .role p{ margin-top:10px; color:var(--ink-soft); font-size:14.5px; }
+  @media (max-width:560px){ .role{ grid-template-columns:1fr; } }
+
+  /* SKILLS */
+  .skill-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:28px 40px; }
+  .skill-cat{ font-family:var(--mono); font-size:12.5px; color:var(--accent); text-transform:uppercase; letter-spacing:.06em; margin-bottom:10px; }
+  .skill-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .skill-tags span{
+    font-size:13px; padding:5px 10px; border:1px solid var(--line); border-radius:2px; color:var(--ink-soft);
+  }
+  @media (max-width:640px){ .skill-grid{ grid-template-columns:1fr; } }
+
+  /* CONTACT */
+  .contact{ text-align:center; }
+  .contact h2{ margin-bottom:14px; }
+  .contact p{ color:var(--ink-soft); max-width:44ch; margin:0 auto 32px; }
+  .contact-links{ display:flex; justify-content:center; gap:20px; flex-wrap:wrap; font-family:var(--mono); font-size:14px; }
+  .contact-links a{ text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; }
+  .contact-links a:hover{ border-color:var(--accent); color:var(--accent); }
+
+  footer{ padding:32px 0; text-align:center; font-family:var(--mono); font-size:12px; color:var(--ink-soft); border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="logo">RIDDHI<span>.</span>SANKHE</div>
+    <ul class="navlinks">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border:none; padding-top:96px;">
+    <div class="eyebrow">Reporting &amp; Data Analyst — London</div>
+    <h1>I turn messy data into decisions <em>people actually act on.</em></h1>
+    <p class="hero-sub">
+      2+ years building Power BI dashboards, running experiments, and finding the story
+      inside operational data — for teams who don't have time to dig for it themselves.
+      Currently open to Data Analyst, BI Analyst, and Product Analyst roles in London.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#work">See the work →</a>
+      <a class="btn btn-line" href="mailto:riddhisankhe@hotmail.com">Get in touch</a>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-num">38<span>%</span></div>
+        <div class="kpi-label">increase in returning customers, from dashboard-led insight</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">20<span>+</span></div>
+        <div class="kpi-label">Power BI dashboards built and maintained</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">15<span>%</span></div>
+        <div class="kpi-label">profit margin lift from KPI-led inventory decisions</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num">100<span>K+</span></div>
+        <div class="kpi-label">records queried and modelled for enterprise clients</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">01 / Work</div>
+        <h2>Selected projects</h2>
+      </div>
+      <div class="sec-note">Swap in your own screenshots, repo links and write-ups — this is a working scaffold, not a museum.</div>
+    </div>
+
+    <div class="projects">
+
+      <div class="project">
+        <div class="project-meta">
+          Python · Power BI · NHS England Open Data
+          <div><span class="tag">Data Cleaning</span><span class="tag">Dashboarding</span><span class="tag">Data Quality</span></div>
+        </div>
+        <div>
+          <h3>NHS RTT Waiting Times — Which Trusts Are Furthest From Target?</h3>
+          <p>
+            Cleaned and analysed 5 months of NHS England's provider-level waiting time data (~180,000 rows/month)
+            to find where the 18-week treatment target is being missed — and by how much.
+          </p>
+          <ul>
+            <li>England crossed the 65% within-18-weeks target around March 2026, holding above it since</li>
+            <li>Performance ranges from 6.9% to 100% across providers — far more variation than the national average suggests</li>
+            <li>Trauma & Orthopaedic Service carries the largest backlog by a wide margin (4M+ patients)</li>
+            <li>Found and fixed a silent data-loss bug (NaN values dropped ~31,700 patients from an early pipeline version)</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/sankheriddhi2601/nhs-rtt-waiting-times" target="_blank">View repo →</a>
+            <a href="https://github.com/sankheriddhi2601/nhs-rtt-waiting-times#readme" target="_blank">Read the case study →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-meta">
+          Power BI · DAX · A/B Testing
+          <div><span class="tag">Experimentation</span><span class="tag">KPI Monitoring</span></div>
+        </div>
+        <div>
+          <h3>Venue Operations Reporting — One Circle Events</h3>
+          <p>
+            Rebuilt fragmented reporting into a single source of truth for leadership, then used it
+            to test and prove out pricing and service changes.
+          </p>
+          <ul>
+            <li>Consolidated operational and commercial data into 20+ Power BI dashboards</li>
+            <li>Designed and ran A/B tests on pricing and service offerings — lifted ROI by 10%</li>
+            <li>Tied booking/demand KPIs to inventory decisions, contributing to a 15% margin increase</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-meta">
+          SQL · Snowflake · Databricks
+          <div><span class="tag">Enterprise Reporting</span><span class="tag">Client-facing</span></div>
+        </div>
+        <div>
+          <h3>Enterprise BI for Nestlé &amp; McDonald's — Gallops Systems</h3>
+          <p>
+            Built and presented reporting infrastructure for enterprise clients, translating large,
+            messy datasets into recommendations SMEs could act on.
+          </p>
+          <ul>
+            <li>10+ Power BI dashboards built on SQL, DAX and Snowflake</li>
+            <li>Queried and transformed 100K+ record datasets to monitor KPIs and anomalies</li>
+            <li>Cut issue resolution time by 13% through faster, clearer reporting</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">02 / Experience</div>
+        <h2>Where I've worked</h2>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="role-date">May 2024 — Present</div>
+      <div>
+        <h3>Reporting &amp; Data Analyst, Venue Operations</h3>
+        <div class="company">One Circle Events, London</div>
+        <p>Owned reporting for operational and commercial teams, from dashboard build to stakeholder-facing recommendations.</p>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="role-date">Apr 2021 — Apr 2023</div>
+      <div>
+        <h3>Data Engineer &amp; Reporting Analyst</h3>
+        <div class="company">Gallops Systems and Solutions, Mumbai</div>
+        <p>Built enterprise dashboards and pipelines for clients including Nestlé and McDonald's.</p>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="role-date">2023 — 2025</div>
+      <div>
+        <h3>MSc Data Science, 2:1</h3>
+        <div class="company">University of Greenwich, London</div>
+        <p>Focused on applied statistics, machine learning and data engineering fundamentals.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head">
+      <div>
+        <div class="sec-num">03 / Skills</div>
+        <h2>Toolkit</h2>
+      </div>
+    </div>
+    <div class="skill-grid">
+      <div>
+        <div class="skill-cat">Reporting &amp; BI</div>
+        <div class="skill-tags">
+          <span>Power BI (DAX)</span><span>Tableau</span><span>Looker</span><span>Excel</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-cat">Data &amp; Cloud</div>
+        <div class="skill-tags">
+          <span>SQL</span><span>Python (Pandas, NumPy)</span><span>Snowflake</span><span>BigQuery</span><span>Databricks</span><span>AWS Athena</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-cat">Analysis</div>
+        <div class="skill-tags">
+          <span>A/B Testing</span><span>KPI Monitoring</span><span>Demand Forecasting</span><span>Customer Behaviour Analysis</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-cat">Collaboration</div>
+        <div class="skill-tags">
+          <span>Stakeholder Management</span><span>Process Documentation</span><span>JIRA</span><span>Git</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="sec-num" style="text-align:center; margin-bottom:14px;">04 / Contact</div>
+    <h2>Let's talk about a role.</h2>
+    <p>Based in London, open to Data Analyst, BI Analyst and Product Analyst roles. Happy to talk through sponsorship if that comes up early.</p>
+    <div class="contact-links">
+      <a href="mailto:riddhisankhe@hotmail.com">riddhisankhe@hotmail.com</a>
+      <a href="https://linkedin.com/in/riddhi-sankhe" target="_blank">LinkedIn</a>
+      <a href="#" target="_blank">GitHub</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>Built by Riddhi Sankhe · London</footer>
+
+<script>
+  const projects = document.querySelectorAll('.project');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.15 });
+  projects.forEach(p => io.observe(p));
+</script>
+
+</body>
+</html>
